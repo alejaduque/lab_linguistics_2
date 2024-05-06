@@ -59,7 +59,7 @@ for (df in list_datasets){
 
 
 #df with information about languagues
-lang_info <- read_csv('language_data_2.csv', show_col_types = FALSE)
+lang_info <- read_csv('D:/CCiL/Quantitative Linguistics/lab_22/language_data_2.csv', show_col_types = FALSE)
 languages <- lang_info$Language
 
 #Append columns with new values: alpha, beta, beta prime
@@ -92,8 +92,6 @@ build_plot <- function(lang_id, lang_name) {
 }
 
 mult_binning <- function(lang_id, lang_name){
-  lang_id <- 1
-  lang_name <- "test"
   data <- read_csv(list_datasets[lang_id], show_col_types = FALSE)
   freq<- data$Frequency
   # freq <- freq[freq > 0]
@@ -107,16 +105,10 @@ mult_binning <- function(lang_id, lang_name){
   bin_edges <- min_value * factor^(0:num_bins)
   bin <- cut(freq, breaks = bin_edges, labels = FALSE)
   smoothed_data <- aggregate(bin ~ freq, FUN = mean)
-  bin
-  bin <- bin[order(bin)]
-  bin
-  rg <- lm(freq ~ bin)
-  summary(rg)
-  plot(bin, freq)
-  new_plot <- ggplot(smoothed_data, aes(x = num_bins - bin, y = freq)) +
+  new_plot <- ggplot(smoothed_data, aes(x = freq, y = bin)) +
     geom_line() +
-    scale_y_continuous(trans = "log2") +
-    labs(x = "Bins", y = "Frequency", title = label)
+    scale_x_log10() +
+    labs(x = "Frequency", y = "Bins", title = label)
   return(new_plot)
 }
 
