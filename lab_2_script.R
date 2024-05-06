@@ -5,6 +5,7 @@ library(tidyverse)
 library(mblm) 
 library(MASS)
 library(gridExtra)
+library(readr)
 # library(RobustLinearReg)
 
 #List with files 
@@ -81,14 +82,29 @@ freq <- c(freq_l)
 ranks <- seq_along(freq)
 log_ranks <- log(ranks)
 log_freq <- log(freq)
-model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank law
+log_freq_unique <- log(unique(freq))
+model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank 
+model_rank <- mblm(log_ranks ~ log_freq) #Rank-Frequency
+model_fc <- mblm(log_fwd_cum ~ log_freq_unique) #Forward cumulative
 
 p1<- ggplot(data = model_freq, aes(x = log_ranks, y = log_freq)) +
   geom_point(color = "red") +
-  geom_smooth(method = "lm", se = FALSE, col = "purple") +
-  labs(title = "Arabic regression on Frequencies-rank law",
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Arabic Frequencies-rank",
        x = "Ranks",
        y = "Frequencies")
+p7<- ggplot(data = model_rank, aes(x = log_freq, y = log_ranks)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Arabic Rank-frequencies",
+       x = "Frequencies",
+       y = "Rank")
+p13<- ggplot(data = model_rank, aes(x = log_freq_unique, y = log_fwd_cum)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Arabic Forward cumulative",
+       x = "Frequencies",
+       y = "Rank")
 
 #2 
 data <- read_csv(list_datasets[4])
@@ -97,15 +113,29 @@ freq <- c(freq_l)
 ranks <- seq_along(freq)
 log_ranks <- log(ranks)
 log_freq <- log(freq)
-model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank law
+log_freq_unique <- log(unique(freq))
+model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank 
+model_rank <- mblm(log_ranks ~ log_freq) #Rank-Frequency
+model_fc <- mblm(log_fwd_cum ~ log_freq_unique) #Forward cumulative
 
 p2<- ggplot(data = model_freq, aes(x = log_ranks, y = log_freq)) +
   geom_point(color = "red") +
-  geom_smooth(method = "lm", se = FALSE, col = "purple") +
-  labs(title = "Chinese regression on Frequencies-rank law",
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Chinese Frequencies-rank law",
        x = "Ranks",
        y = "Frequencies")
-
+p8<- ggplot(data = model_rank, aes(x = log_freq, y = log_ranks)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Chinese Rank-frequencies",
+       x = "Frequencies",
+       y = "Rank")
+p14<- ggplot(data = model_rank, aes(x = log_freq_unique, y = log_fwd_cum)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Chinese Forward cumulative",
+       x = "Frequencies",
+       y = "Rank")
 #3 
 data <- read_csv(list_datasets[10])
 freq_l<- data$Frequency
@@ -113,14 +143,29 @@ freq <- c(freq_l)
 ranks <- seq_along(freq)
 log_ranks <- log(ranks)
 log_freq <- log(freq)
-model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank law
+log_freq_unique <- log(unique(freq))
+model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank 
+model_rank <- mblm(log_ranks ~ log_freq) #Rank-Frequency
+model_fc <- mblm(log_fwd_cum ~ log_freq_unique) #Forward cumulative
 
 p3<- ggplot(data = model_freq, aes(x = log_ranks, y = log_freq)) +
   geom_point(color = "red") +
-  geom_smooth(method = "lm", se = FALSE, col = "purple") +
-  labs(title = "Japanese regression on Frequencies-rank law",
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Japanese Frequencies-rank law",
        x = "Ranks",
        y = "Frequencies")
+p9<- ggplot(data = model_rank, aes(x = log_freq, y = log_ranks)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Japanese Rank-frequencies",
+       x = "Frequencies",
+       y = "Rank")
+p15<- ggplot(data = model_rank, aes(x = log_freq_unique, y = log_fwd_cum)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Japanese Forward cumulative",
+       x = "Frequencies",
+       y = "Rank")
 
 #4 
 data <- read_csv(list_datasets[12])
@@ -129,15 +174,29 @@ freq <- c(freq_l)
 ranks <- seq_along(freq)
 log_ranks <- log(ranks)
 log_freq <- log(freq)
-model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank law
+log_freq_unique <- log(unique(freq))
+model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank 
+model_rank <- mblm(log_ranks ~ log_freq) #Rank-Frequency
+model_fc <- mblm(log_fwd_cum ~ log_freq_unique) #Forward cumulative
 
 p4<- ggplot(data = model_freq, aes(x = log_ranks, y = log_freq)) +
   geom_point(color = "red") +
-  geom_smooth(method = "lm", se = FALSE, col = "purple") +
-  labs(title = "Korean regression on Frequencies-rank law",
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Korean Frequencies-rank law",
        x = "Ranks",
        y = "Frequencies")
-
+p10<- ggplot(data = model_rank, aes(x = log_freq, y = log_ranks)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Korean Rank-frequencies",
+       x = "Frequencies",
+       y = "Rank")
+p16<- ggplot(data = model_rank, aes(x = log_freq_unique, y = log_fwd_cum)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Korean Forward cumulative",
+       x = "Frequencies",
+       y = "Rank")
 #5 
 data <- read_csv(list_datasets[11])
 freq_l<- data$Frequency
@@ -145,15 +204,29 @@ freq <- c(freq_l)
 ranks <- seq_along(freq)
 log_ranks <- log(ranks)
 log_freq <- log(freq)
-model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank law
+log_freq_unique <- log(unique(freq))
+model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank 
+model_rank <- mblm(log_ranks ~ log_freq) #Rank-Frequency
+model_fc <- mblm(log_fwd_cum ~ log_freq_unique) #Forward cumulative
 
 p5<- ggplot(data = model_freq, aes(x = log_ranks, y = log_freq)) +
   geom_point(color = "red") +
-  geom_smooth(method = "lm", se = FALSE, col = "purple") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
   labs(title = "Kannada regression on Frequencies-rank law",
        x = "Ranks",
        y = "Frequencies")
-
+p11<- ggplot(data = model_rank, aes(x = log_freq, y = log_ranks)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Kannada Rank-frequencies",
+       x = "Frequencies",
+       y = "Rank")
+p16<- ggplot(data = model_rank, aes(x = log_freq_unique, y = log_fwd_cum)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Kannada Forward cumulative",
+       x = "Frequencies",
+       y = "Rank")
 #6 
 data <- read_csv(list_datasets[17])
 freq_l<- data$Frequency
@@ -161,43 +234,29 @@ freq <- c(freq_l)
 ranks <- seq_along(freq)
 log_ranks <- log(ranks)
 log_freq <- log(freq)
-model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank law
+log_freq_unique <- log(unique(freq))
+model_freq <- lm(log_freq ~ log_ranks) #Frequency-Rank 
+model_rank <- mblm(log_ranks ~ log_freq) #Rank-Frequency
+model_fc <- mblm(log_fwd_cum ~ log_freq_unique) #Forward cumulative
 
 p6<- ggplot(data = model_freq, aes(x = log_ranks, y = log_freq)) +
   geom_point(color = "red") +
-  geom_smooth(method = "lm", se = FALSE, col = "purple") +
-  labs(title = "Spanish regression on Frequencies-rank law",
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Spanish Frequencies-rank law",
        x = "Ranks",
        y = "Frequencies")
-
+p12<- ggplot(data = model_rank, aes(x = log_freq, y = log_ranks)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Spanish Rank-frequencies",
+       x = "Frequencies",
+       y = "Rank")
+p17<- ggplot(data = model_rank, aes(x = log_freq_unique, y = log_fwd_cum)) +
+  geom_point(color = "red") +
+  geom_smooth(method = "mblm", se = FALSE, col = "purple") +
+  labs(title = "Spanish Forward cumulative",
+       x = "Frequencies",
+       y = "Rank")
 #Arranging plots 
 multiplot <- grid.arrange(p1, p2, p3, p4, p5, p6, nrow = 2)
-#Number-frequencies law 
-
-model_rank <- mblm(log_ranks ~ log_freq)
-# Theil_sen_regression
-plot(log_ranks ~ log_freq)
-abline(model_rank,col='blue')
-beta <- coef(model_rank)[2]
-
-# Forward cumulative and retrieve beta_prime
-
-log_freq_unique <- log(unique(freq))
-
-forward_cumulative <- function(freq_x){
-  result <- c()
-  freq_unique <- unique(freq_x)
-  for (i in 1:length(freq_unique)){
-    result <- c(result, sum(freq_x >= freq_unique[i]))
-  }
-  return(result)
-}
-
-log_fwd_cum <- log(forward_cumulative(freq))
-
-
-model_fc <- mblm(log_fwd_cum ~ log_freq_unique)
-# Theil_sen_regression
-plot(log_fwd_cum ~ log_freq_unique)
-abline(model_fc, col='blue')
-beta_prime <- coef(model_fc)[2]
+multiplot1 <- grid.arrange(p7, p8, p9, p10, p11, p12, nrow = 2)
